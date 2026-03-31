@@ -1,0 +1,30 @@
+services:
+  api:
+    build: .
+    ports:
+      - "3087:3087"
+    depends_on:
+      - postgres
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:3087
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=todo_api_db;Username=postgres;Password=postgres
+      Jwt__Key: super_secret_key_for_todo_api_change_this_12345
+      Jwt__Issuer: TodoApi
+      Jwt__Audience: TodoApiUsers
+      Jwt__ExpiresInSeconds: 3600
+
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: todo_api_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

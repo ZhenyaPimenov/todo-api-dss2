@@ -1,0 +1,50 @@
+TODO MANAGEMENT API - HOW TO PUT EVERYTHING INTO VISUAL STUDIO
+
+1. Create a new ASP.NET Core Web API project called TodoApi.
+2. Delete the files WeatherForecast.cs and Controllers/WeatherForecastController.cs.
+3. Replace Program.cs with the Program.cs from this folder.
+4. Replace the content of appsettings.json with the appsettings.json from this folder.
+5. Create these folders in Solution Explorer:
+   - Data
+   - DTOs
+   - Models
+6. Inside Controllers keep AuthController.cs and TodosController.cs from this folder.
+7. Inside Data create AppDbContext.cs.
+8. Inside Models create AppUser.cs and TodoItem.cs.
+9. Inside DTOs create:
+   - RegisterDto.cs
+   - LoginDto.cs
+   - AuthResponseDto.cs
+   - CreateTodoDto.cs
+   - UpdateTodoDto.cs
+10. Right-click the project -> Edit Project File. Replace the content with TodoApi.csproj from this folder.
+11. Save everything.
+
+PACKAGES
+If Visual Studio does not restore automatically, install these packages from Tools -> NuGet Package Manager -> Manage NuGet Packages:
+- Microsoft.AspNetCore.Authentication.JwtBearer
+- Microsoft.EntityFrameworkCore
+- Microsoft.EntityFrameworkCore.Design
+- Npgsql.EntityFrameworkCore.PostgreSQL
+- Swashbuckle.AspNetCore
+- BCrypt.Net-Next
+
+DATABASE / MIGRATIONS
+Open Tools -> NuGet Package Manager -> Package Manager Console and run:
+1) Add-Migration InitialCreate
+2) Update-Database
+
+RUN
+Press Start. Swagger should open.
+
+TEST ORDER
+1) POST /api/auth/register
+2) POST /api/auth/login
+3) Copy token
+4) Click Authorize in Swagger and paste: Bearer YOUR_TOKEN
+5) Test POST /api/todos
+6) Test GET /api/todos
+7) Test GET /api/todos/public
+
+IMPORTANT
+I could not compile this here because .NET SDK is not available in my environment, so you should paste the files into Visual Studio and run Restore/Add-Migration/Update-Database there.
